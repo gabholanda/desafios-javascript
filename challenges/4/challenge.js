@@ -59,7 +59,7 @@ const normalizeData = unormalized => {
             [unormalized['id']]: {
                 id: unormalized.id,
                 user: unormalized.user.id,
-                reports: unormalized.reports.map(report => report.id)
+                reports: []
             }
         },
         users: {
@@ -79,6 +79,7 @@ const normalizeData = unormalized => {
             document: report.result.document,
             status: report.result.status
         }
+        normalized.results[unormalized['id']].reports.push(report.id);
     })
 
     return normalized;
