@@ -26,6 +26,12 @@
  * }
  */
 
-const extractSize = htmlTemplate => {}
+const extractSize = htmlTemplate => {
+    if (!htmlTemplate) return { height: 0, width: 0 }
+    return {
+        height: Number(htmlTemplate.match(/height:(.*?\d+)/)[1]),
+        width: Number(htmlTemplate.match(/width:(.*?\d+)/)[1]),
+    }
+}
 
 module.exports = extractSize

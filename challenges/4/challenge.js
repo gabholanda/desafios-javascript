@@ -52,6 +52,36 @@
  *  }
  */
 
-const normalizeData = unormalized => {}
+//  Divided the problem in two parts to solve it.
+const normalizeData = unormalized => {
+    let normalized = {
+        results: {
+            [unormalized['id']]: {
+                id: unormalized.id,
+                user: unormalized.user.id,
+                reports: unormalized.reports.map(report => report.id)
+            }
+        },
+        users: {
+            [unormalized.user['id']]: {
+                id: unormalized.user.id, name: unormalized.user.name
+            }
+        },
+        reports: {}
+    }
+
+
+    unormalized.reports.forEach(report => {
+        normalized.reports[`${report.id}`] =
+        {
+            id: report.id,
+            user: unormalized.user.id,
+            document: report.result.document,
+            status: report.result.status
+        }
+    })
+
+    return normalized;
+}
 
 module.exports = normalizeData
